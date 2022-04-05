@@ -90,3 +90,5 @@ const projects = [
     image: "https://i.imgur.com/Japzh6v.png",
   },
 ];
+
+export default projects
