@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <Header />
-      <ProjectForm projects={projects} />
+      <ProjectForm />
       <ProjectList projects={projects} />
     </>
   );
