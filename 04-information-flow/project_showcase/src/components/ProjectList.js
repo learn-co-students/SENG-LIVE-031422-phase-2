@@ -2,7 +2,15 @@ import ProjectListItem from "./ProjectListItem";
 import { useState } from "react";
 
 function ProjectList({ projects }) {
+
+  // searchQuery is our state value: searchQuery = ""
+  // setSearchQuery is the setter function: setSearchQuery(string)
+  // useState is a react hook and it initializes state within a component. It's return value is an array of 2 elements: [state_value, setter_function]
+  // We then perform array destructuring to extract these two elements and store inside of variables
   const [searchQuery, setSearchQuery] = useState("");
+
+  // const searchQuery = useState("")[0]
+  // const setSearchQuery = useState("")[1]
 
   const searchResults = projects.filter((project) => {
     return project.name.toLowerCase().includes(searchQuery.toLowerCase());
