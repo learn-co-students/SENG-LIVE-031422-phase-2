@@ -1,4 +1,4 @@
-function ProjectForm() {
+const ProjectForm = () => {
   return (
     <section>
       <form className="form">
@@ -11,6 +11,6 @@ function ProjectForm() {
       </form>
     </section>
   );
-}
+};
 
 export default ProjectForm;

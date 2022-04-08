@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function ProjectListItem({ project }) {
+const ProjectListItem = ({ project }) => {
   const { image, about, name, link, phase } = project;
 
   const [clapCount, setClapCount] = useState(0);
@@ -31,6 +31,6 @@ function ProjectListItem({ project }) {
       </footer>
     </li>
   );
-}
+};
 
 export default ProjectListItem;
