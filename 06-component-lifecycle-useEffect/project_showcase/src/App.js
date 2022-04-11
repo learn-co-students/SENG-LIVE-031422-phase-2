@@ -18,17 +18,14 @@ const App = () => {
     setIsDarkMode((isDarkMode) => !isDarkMode);
   };
 
-  // create a function that will update the state of projects so that App still has control over this update and then send that function down to projectform
-
   const onAddProject = (newProj) => {
-    // if we are adding a new project to projects collection, what should we pass to onAddProject
-    setProjects(projects => [...projects, newProj]) 
-  }
+    setProjects((projects) => [...projects, newProj]);
+  };
 
   return (
     <div className={isDarkMode ? "App" : "App light"}>
       <Header isDarkMode={isDarkMode} onToggleDarkMode={onToggleDarkMode} />
-      <ProjectForm onAddProject={onAddProject}/>
+      <ProjectForm onAddProject={onAddProject} />
       <button onClick={fetchProjects}>Load Projects</button>
       <ProjectList projects={projects} />
     </div>

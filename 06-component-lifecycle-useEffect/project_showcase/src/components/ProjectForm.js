@@ -1,17 +1,6 @@
-// we need to make this a controlled form:
-
-// First step: add state: import useState
-// Second step: is adding a name attribute to form inputs to reflect the key inside of our state object
-// Third step: attach an onChange event to each form field, and define an event handler to handle that onChange
-// Fourth step: inside of event handler for the onChange, update state
-
-// Now what do we do with the form data? Submit it!!!
-// First step: attach an event lister, onSubmit to the form
-// Second: create and event handler, prevent the default behavior
-
 import { useState } from "react";
 
-const ProjectForm = ({onAddProject}) => {
+const ProjectForm = ({ onAddProject }) => {
   const [formData, setFormData] = useState({
     name: "",
     about: "",
@@ -27,7 +16,7 @@ const ProjectForm = ({onAddProject}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData)
+    console.log(formData);
     const configObj = {
       method: "POST",
       headers: {
@@ -37,22 +26,18 @@ const ProjectForm = ({onAddProject}) => {
       body: JSON.stringify(formData),
     };
 
-    // I want to persist formData
     fetch("http://localhost:4000/projects", configObj)
-    .then(resp => resp.json())
-    .then(project => {
-      // i need to use project to update the projects state in App component
-      // How???
-      // cb function 
-      onAddProject(project)
-      setFormData({
-        name: "",
-        about: "",
-        phase: "",
-        link: "",
-        image: "",
-      })
-    })
+      .then((resp) => resp.json())
+      .then((project) => {
+        onAddProject(project);
+        setFormData({
+          name: "",
+          about: "",
+          phase: "",
+          link: "",
+          image: "",
+        });
+      });
   };
 
   return (
