@@ -16,14 +16,13 @@ const ProjectForm = ({ onAddProject }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
     const configObj = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({ ...formData, claps: 0 }),
     };
 
     fetch("http://localhost:4000/projects", configObj)

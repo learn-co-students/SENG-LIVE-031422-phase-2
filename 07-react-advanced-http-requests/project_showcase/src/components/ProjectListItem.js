@@ -1,17 +1,27 @@
 import { useState } from "react";
+import { FaPencilAlt, FaTrash } from "react-icons/fa";
 
-const ProjectListItem = ({ project }) => {
-  const { image, about, name, link, phase } = project;
+const ProjectListItem = ({ project, enterProjectEditModeFor }) => {
+  const { id, image, about, name, link, phase } = project;
 
   const [clapCount, setClapCount] = useState(0);
 
   const handleClap = () => setClapCount(clapCount + 1);
 
+  const handleEditClick = () => {
+    enterProjectEditModeFor(id);
+  };
+
+  const handleDeleteClick = () => {};
+
   return (
     <li className="card">
       <figure className="image">
         <img src={image} alt={name} />
-        <button className="claps" onClick={handleClap}>
+        <button
+          onClick={() => setClapCount((clapCount) => clapCount + 1)}
+          className="claps"
+        >
           👏{clapCount}
         </button>
       </figure>
@@ -28,6 +38,14 @@ const ProjectListItem = ({ project }) => {
 
       <footer className="extra">
         <span className="badge blue">Phase {phase}</span>
+        <div className="manage">
+          <button onClick={handleEditClick}>
+            <FaPencilAlt />
+          </button>
+          <button onClick={handleDeleteClick}>
+            <FaTrash />
+          </button>
+        </div>
       </footer>
     </li>
   );
