@@ -20,7 +20,7 @@ function ProjectEditForm({ projectId, completeEditing }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormState({ ...formState, [name]: value });
-  }
+  };
 
   function handleSubmit(e) {
     e.preventDefault();

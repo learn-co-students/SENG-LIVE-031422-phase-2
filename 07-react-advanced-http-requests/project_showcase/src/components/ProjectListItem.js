@@ -6,7 +6,7 @@ const ProjectListItem = ({ project, enterProjectEditModeFor }) => {
 
   const [clapCount, setClapCount] = useState(0);
 
-  const handleClap = () => setClapCount(clapCount + 1);
+  const handleClap = (clapCount) => setClapCount(clapCount + 1);
 
   const handleEditClick = () => {
     enterProjectEditModeFor(id);
@@ -18,10 +18,7 @@ const ProjectListItem = ({ project, enterProjectEditModeFor }) => {
     <li className="card">
       <figure className="image">
         <img src={image} alt={name} />
-        <button
-          onClick={() => setClapCount((clapCount) => clapCount + 1)}
-          className="claps"
-        >
+        <button onClick={handleClap} className="claps">
           👏{clapCount}
         </button>
       </figure>

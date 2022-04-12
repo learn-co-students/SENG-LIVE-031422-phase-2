@@ -9,7 +9,7 @@
 ## Deliverables
 
 - Review changes to the project showcase application
-- Review useEffect by updating `App.js` so we can have projects appear on load
+- Review useEffect by updating `App.js` so that projects appear on page load
 - Get our edit project form working
 - Get the Delete project form working
 - Get the claps button to persist the number of claps
