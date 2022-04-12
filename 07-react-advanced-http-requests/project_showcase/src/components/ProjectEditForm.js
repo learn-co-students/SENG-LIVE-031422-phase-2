@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function ProjectEditForm({ projectId, completeEditing }) {
+function ProjectEditForm({ projectId, onUpdateProject }) {
   const [formState, setFormState] = useState({
     name: "",
     about: "",
@@ -15,18 +15,57 @@ function ProjectEditForm({ projectId, completeEditing }) {
     fetch(`http://localhost:4000/projects/${projectId}`)
       .then((res) => res.json())
       .then((project) => setFormState(project));
-  }, []);
+  }, [projectId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormState({ ...formState, [name]: value });
   };
 
-  function handleSubmit(e) {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   // Add code here
+
+  //   // Body: formState
+  //   // Method: PATCH
+
+  //   const configObj = {
+  //     method: 'PATCH',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Accept': 'application/json'
+  //     },
+  //     body: JSON.stringify(formState)
+  //   }
+
+  //   fetch(`http://localhost:4000/projects/${projectId}`, configObj)
+  //   .then(resp => resp.json())
+  //   .then(updatedProj => {
+  //     // update the state
+  //     onUpdateProject(updatedProj)
+  //   })
+  // }
+
+  // async/await
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add code here
-    completeEditing();
-  }
+
+    const configObj = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(formState),
+    };
+
+    let resp = await fetch(
+      `http://localhost:4000/projects/${projectId}`,
+      configObj
+    );
+    let updatedProj = await resp.json();
+    onUpdateProject(updatedProj);
+  };
 
   return (
     <form onSubmit={handleSubmit} className="form" autoComplete="off">
