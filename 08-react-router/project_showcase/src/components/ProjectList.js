@@ -3,7 +3,6 @@ import { useState } from "react";
 
 const ProjectList = ({
   projects,
-  enterProjectEditModeFor,
   onDeleteProject,
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -17,7 +16,6 @@ const ProjectList = ({
       <ProjectListItem
         key={project.id}
         project={project}
-        enterProjectEditModeFor={enterProjectEditModeFor}
         onDeleteProject={onDeleteProject}
       />
     );

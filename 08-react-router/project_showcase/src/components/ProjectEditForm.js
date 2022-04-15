@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-
-const ProjectEditForm = ({ projectId, onUpdateProject }) => {
+import { useParams, useHistory } from "react-router-dom";
+const ProjectEditForm = ({ onUpdateProject }) => {
   const [formState, setFormState] = useState({
     name: "",
     about: "",
@@ -10,12 +10,14 @@ const ProjectEditForm = ({ projectId, onUpdateProject }) => {
   });
 
   const { name, about, phase, link, image } = formState;
+  const { id } = useParams();
+  const history = useHistory()
 
   useEffect(() => {
-    fetch(`http://localhost:4000/projects/${projectId}`)
+    fetch(`http://localhost:4000/projects/${id}`)
       .then((res) => res.json())
       .then((project) => setFormState(project));
-  }, [projectId]);
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,10 +35,11 @@ const ProjectEditForm = ({ projectId, onUpdateProject }) => {
       body: JSON.stringify(formState),
     };
 
-    fetch(`http://localhost:4000/projects/${projectId}`, configObj)
+    fetch(`http://localhost:4000/projects/${id}`, configObj)
       .then((resp) => resp.json())
       .then((updatedProj) => {
         onUpdateProject(updatedProj);
+        history.push(`/projects/${id}`) // redirecting to a new route
       });
   };
 
