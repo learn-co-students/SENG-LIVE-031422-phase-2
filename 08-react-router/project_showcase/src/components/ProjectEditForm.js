@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function ProjectEditForm({ projectId, onUpdateProject }) {
+const ProjectEditForm = ({ projectId, onUpdateProject }) => {
   const [formState, setFormState] = useState({
     name: "",
     about: "",
@@ -22,34 +22,8 @@ function ProjectEditForm({ projectId, onUpdateProject }) {
     setFormState({ ...formState, [name]: value });
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   // Add code here
-
-  //   // Body: formState
-  //   // Method: PATCH
-
-  //   const configObj = {
-  //     method: 'PATCH',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Accept': 'application/json'
-  //     },
-  //     body: JSON.stringify(formState)
-  //   }
-
-  //   fetch(`http://localhost:4000/projects/${projectId}`, configObj)
-  //   .then(resp => resp.json())
-  //   .then(updatedProj => {
-  //     // update the state
-  //     onUpdateProject(updatedProj)
-  //   })
-  // }
-
-  // async/await
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
     const configObj = {
       method: "PATCH",
       headers: {
@@ -59,12 +33,11 @@ function ProjectEditForm({ projectId, onUpdateProject }) {
       body: JSON.stringify(formState),
     };
 
-    let resp = await fetch(
-      `http://localhost:4000/projects/${projectId}`,
-      configObj
-    );
-    let updatedProj = await resp.json();
-    onUpdateProject(updatedProj);
+    fetch(`http://localhost:4000/projects/${projectId}`, configObj)
+      .then((resp) => resp.json())
+      .then((updatedProj) => {
+        onUpdateProject(updatedProj);
+      });
   };
 
   return (
@@ -113,6 +86,6 @@ function ProjectEditForm({ projectId, onUpdateProject }) {
       <button type="submit">Update Project</button>
     </form>
   );
-}
+};
 
 export default ProjectEditForm;

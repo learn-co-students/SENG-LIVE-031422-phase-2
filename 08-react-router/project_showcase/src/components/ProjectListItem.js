@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { FaPencilAlt, FaTrash } from "react-icons/fa";
 
-const ProjectListItem = ({ project, enterProjectEditModeFor, onDeleteProject }) => {
+const ProjectListItem = ({
+  project,
+  enterProjectEditModeFor,
+  onDeleteProject,
+}) => {
   const { id, image, about, name, link, phase } = project;
 
   const [clapCount, setClapCount] = useState(0);
@@ -12,28 +16,13 @@ const ProjectListItem = ({ project, enterProjectEditModeFor, onDeleteProject }) 
     enterProjectEditModeFor(id);
   };
 
-  // const handleDeleteClick = () => {
-  //   fetch(`http://localhost:4000/projects/${id}`, {
-  //     method: 'DELETE'
-  //   })
-  //   onDeleteProject(project)
-  //   // .then(resp => console.log(resp))
-  //   // .then(
-  //   //   // invoke a function that updates the state Projects inside of app
-  //   //   onDeleteProject(project)
-  //   // )
-  // };
-  // async/await version:
-  const handleDeleteClick = async () => {
-    await fetch(`http://localhost:4000/projects/${id}`, {
-      method: 'DELETE'
-    })
+  const handleDeleteClick = () => {
+    fetch(`http://localhost:4000/projects/${id}`, {
+      method: "DELETE",
+    });
     onDeleteProject(project)
-    // .then(resp => console.log(resp))
-    // .then(
-    //   // invoke a function that updates the state Projects inside of app
-    //   onDeleteProject(project)
-    // )
+      .then((resp) => console.log(resp))
+      .then(onDeleteProject(project));
   };
 
   return (

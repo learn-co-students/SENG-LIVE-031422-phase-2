@@ -4,6 +4,8 @@ import Header from "./components/Header";
 import ProjectForm from "./components/ProjectForm";
 import ProjectList from "./components/ProjectList";
 import ProjectEditForm from "./components/ProjectEditForm";
+import ProjectDetail from "./components/ProjectDetail";
+import Home from "./components/Home";
 
 const App = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
@@ -25,7 +27,7 @@ const App = () => {
   };
 
   const completeEditing = () => {
-    setProjectId(null); // finished editing
+    setProjectId(null);
   };
 
   const enterProjectEditModeFor = (projectId) => {
@@ -33,24 +35,23 @@ const App = () => {
   };
 
   const onUpdateProject = (updatedProj) => {
-    const updatedProjects = projects.map(ogProject => {
-      if (ogProject.id === updatedProj.id){
-        return updatedProj
+    const updatedProjects = projects.map((ogProject) => {
+      if (ogProject.id === updatedProj.id) {
+        return updatedProj;
+      } else {
+        return ogProject;
       }
-      else {
-        return ogProject
-      }
-    })
-    setProjects(updatedProjects)
-    completeEditing()
-  }
+    });
+    setProjects(updatedProjects);
+    completeEditing();
+  };
 
   const onDeleteProject = (deletedProj) => {
-    // How am i going to update the projects state to exclude this deletedProj
-
-    const updatedProjects = projects.filter(project => project.id !== deletedProj.id)
-    setProjects(updatedProjects)
-  }
+    const updatedProjects = projects.filter(
+      (project) => project.id !== deletedProj.id
+    );
+    setProjects(updatedProjects);
+  };
 
   const renderForm = () => {
     if (projectId) {
@@ -68,12 +69,14 @@ const App = () => {
   return (
     <div className={isDarkMode ? "App" : "App light"}>
       <Header isDarkMode={isDarkMode} onToggleDarkMode={onToggleDarkMode} />
+      <Home />
       {renderForm()}
       <ProjectList
         projects={projects}
         enterProjectEditModeFor={enterProjectEditModeFor}
         onDeleteProject={onDeleteProject}
       />
+      <ProjectDetail />
     </div>
   );
 };
