@@ -1,28 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
+import { useForm } from '../hooks/useForm'
+
 const ProjectEditForm = ({ onUpdateProject }) => {
-  const [formState, setFormState] = useState({
+
+  const initialState = {
     name: "",
     about: "",
     phase: "",
     link: "",
     image: "",
-  });
+  }
 
-  const { name, about, phase, link, image } = formState;
+  const { formData, setFormData, handleChange } = useForm(initialState)
+  const { name, about, phase, link, image } = formData;
   const { id } = useParams();
   const history = useHistory();
 
   useEffect(() => {
     fetch(`http://localhost:4000/projects/${id}`)
       .then((res) => res.json())
-      .then((project) => setFormState(project));
-  }, [id]);
+      .then((project) => setFormData(project));
+  }, [id, setFormData]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormState({ ...formState, [name]: value });
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,7 +32,7 @@ const ProjectEditForm = ({ onUpdateProject }) => {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify(formState),
+      body: JSON.stringify(formData),
     };
 
     fetch(`http://localhost:4000/projects/${id}`, configObj)

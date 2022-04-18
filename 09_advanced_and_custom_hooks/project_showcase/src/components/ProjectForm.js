@@ -1,18 +1,28 @@
-import { useState } from "react";
+import { useEffect, useRef } from "react";
+import { useForm } from "../hooks/useForm";
 
 const ProjectForm = ({ onAddProject }) => {
-  const [formData, setFormData] = useState({
+
+  const initialState = {
     name: "",
     about: "",
     phase: "",
     link: "",
     image: "",
-  });
+  }
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((formData) => ({ ...formData, [name]: value }));
-  };
+  const {formData, setFormData, handleChange} = useForm(initialState)
+
+  const nameInputRef = useRef() // return value will be: {current: the element we attached the reference to}
+
+  const aboutInputRef = useRef()
+
+  // when the projectForm loads(DOMCONTENTLOADED), then bring the input field immediately into focus
+  useEffect(() => {
+    // how to access input element using the reference we created 
+    nameInputRef.current.focus()
+  }, [])
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,13 +39,7 @@ const ProjectForm = ({ onAddProject }) => {
       .then((resp) => resp.json())
       .then((project) => {
         onAddProject(project);
-        setFormData({
-          name: "",
-          about: "",
-          phase: "",
-          link: "",
-          image: "",
-        });
+        setFormData(initialState);
       });
   };
 
@@ -51,6 +55,7 @@ const ProjectForm = ({ onAddProject }) => {
           name="name"
           onChange={handleChange}
           value={formData.name}
+          ref={nameInputRef}
         />
 
         <label htmlFor="about">About</label>
@@ -59,6 +64,7 @@ const ProjectForm = ({ onAddProject }) => {
           name="about"
           onChange={handleChange}
           value={formData.about}
+          ref={aboutInputRef}
         />
 
         <label htmlFor="phase">Phase</label>

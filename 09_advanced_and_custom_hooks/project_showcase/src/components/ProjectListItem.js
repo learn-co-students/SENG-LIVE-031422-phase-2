@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { FaPencilAlt, FaTrash } from "react-icons/fa";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
+import { UserContext } from "../App";
 
-const ProjectListItem = ({
-  project,
-  onDeleteProject,
-}) => {
+const ProjectListItem = ({ project, onDeleteProject }) => {
   const { id, image, about, name, link, phase } = project;
+
+  const currentUser = useContext(UserContext)
+
+  console.log(currentUser)
 
   const [clapCount, setClapCount] = useState(0);
 
@@ -43,7 +45,7 @@ const ProjectListItem = ({
       <footer className="extra">
         <span className="badge blue">Phase {phase}</span>
         <div className="manage">
-          <Link className="button" to={`/projects/${id}/edit`} >
+          <Link className="button" to={`/projects/${id}/edit`}>
             <FaPencilAlt />
           </Link>
           <button onClick={handleDeleteClick}>
