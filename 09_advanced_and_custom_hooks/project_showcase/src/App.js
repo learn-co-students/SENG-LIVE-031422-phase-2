@@ -55,23 +55,16 @@ const App = () => {
         <Route path="/projects/new">
           <ProjectForm onAddProject={onAddProject} />
         </Route>
-        <Route path="/projects/:id/edit"> 
-          <ProjectEditForm
-            onUpdateProject={onUpdateProject}
-          />
+        <Route path="/projects/:id/edit">
+          <ProjectEditForm onUpdateProject={onUpdateProject} />
         </Route>
         <Route path="/projects/:id">
           <ProjectDetail />
         </Route>
         <Route path="/projects">
-          <ProjectList
-            projects={projects}
-            onDeleteProject={onDeleteProject}
-          />
+          <ProjectList projects={projects} onDeleteProject={onDeleteProject} />
         </Route>
       </Switch>
-
-      {/* Footer would go here */}
     </div>
   );
 };

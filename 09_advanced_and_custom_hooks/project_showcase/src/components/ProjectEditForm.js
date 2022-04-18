@@ -11,7 +11,7 @@ const ProjectEditForm = ({ onUpdateProject }) => {
 
   const { name, about, phase, link, image } = formState;
   const { id } = useParams();
-  const history = useHistory()
+  const history = useHistory();
 
   useEffect(() => {
     fetch(`http://localhost:4000/projects/${id}`)
@@ -39,7 +39,7 @@ const ProjectEditForm = ({ onUpdateProject }) => {
       .then((resp) => resp.json())
       .then((updatedProj) => {
         onUpdateProject(updatedProj);
-        history.push(`/projects/${id}`) // redirecting to a new route
+        history.push(`/projects/${id}`); // redirecting to a new route
       });
   };
 
